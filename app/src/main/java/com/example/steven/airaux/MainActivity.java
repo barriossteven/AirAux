@@ -6,7 +6,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -18,6 +27,11 @@ import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity implements ConnectionStateCallback  {
 
     private static final String CLIENT_ID = "9a0337f34c5e49b3ac9d5a20441a533e";
@@ -25,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionStateCa
 
     // Request code that will be used to verify if the result comes from correct activity
     private static final int REQUEST_CODE = 1337;
-
+    public TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionStateCa
         AuthenticationRequest request = builder.build();
 
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
-
+        mTextView = (TextView) findViewById(R.id.text);
 
 
     }
@@ -75,6 +89,39 @@ public class MainActivity extends AppCompatActivity implements ConnectionStateCa
     @Override
     public void onLoggedIn() {
         Log.d("MainActivity", "User logged in");
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String yourUrl = "https://api.spotify.com/v1/me/playlists";
+
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, yourUrl, null ,new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i("onResponse", response.toString());
+                Log.d("MainActivity", "request WORKEDDDD");
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("onErrorResponse", error.toString());
+                Log.d("MainActivity", "request didnt work");
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                // Basic Authentication
+                //String auth = "Basic " + Base64.encodeToString(CONSUMER_KEY_AND_SECRET.getBytes(), Base64.NO_WRAP);
+                headers.put("Accept:","application/json");
+                headers.put("Authorization", "Bearer " + "BQAbzIIYnAzDZdU8xydH0edV4X5VYQ5fhIi1gg0ywESua3aOc5BaXvaYRVaHhEx66_uDOv-o7ub94Blj-A154CWHNpBEGP8MLizD1ur20Q4RKJj0HMLwzUuf1saNdtvu2SXQnkLQPplROcX2cgJqgD6l27drL37T");
+                return headers;
+            }
+        };
+        queue.add(request);
+
+
+
     }
 
     @Override
@@ -84,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionStateCa
 
     @Override
     public void onLoginFailed(Error error) {
-        Log.d("MainActivity", "Login failsdsded");
+        Log.d("MainActivity", "Login failed");
     }
 
     @Override
