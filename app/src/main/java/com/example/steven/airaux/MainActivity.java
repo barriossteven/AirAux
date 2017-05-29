@@ -19,14 +19,13 @@ import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
 public class MainActivity extends AppCompatActivity implements ConnectionStateCallback  {
-    // TODO: Replace with your client ID
+
     private static final String CLIENT_ID = "9a0337f34c5e49b3ac9d5a20441a533e";
-    // TODO: Replace with your redirect URI
     private static final String REDIRECT_URI = "airaux://callback";
 
     // Request code that will be used to verify if the result comes from correct activity
-    // Can be any integer
     private static final int REQUEST_CODE = 1337;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements ConnectionStateCa
         AuthenticationRequest request = builder.build();
 
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
+
+
+
     }
 
     @Override

@@ -39,6 +39,8 @@ dependencies {
     // This library handles music playback
     compile 'com.spotify.sdk:spotify-player:24-noconnect-2.20b@aar'
 
+    compile project(':volley')
+
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
