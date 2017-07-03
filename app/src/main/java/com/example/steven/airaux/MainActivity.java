@@ -39,13 +39,23 @@ public class MainActivity extends AppCompatActivity implements ConnectionStateCa
 
     // Request code that will be used to verify if the result comes from correct activity
     private static final int REQUEST_CODE = 1337;
-    public TextView mTextView;
+    public Button login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        login = (Button) findViewById(R.id.login);
+        login.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v) {
+               startLogin();
+            }
+        });
+
+    }
+
+    public void startLogin (){
         AuthenticationRequest.Builder builder =
                 new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
 
@@ -53,8 +63,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionStateCa
         AuthenticationRequest request = builder.build();
 
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
-        mTextView = (TextView) findViewById(R.id.text);
-
 
     }
 
@@ -62,11 +70,11 @@ public class MainActivity extends AppCompatActivity implements ConnectionStateCa
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
 
-        // Check if result comes from the correct activity
-        if (requestCode == REQUEST_CODE) {
-            AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
+            // Check if result comes from the correct activity
+            if (requestCode == REQUEST_CODE) {
+                AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
 
-            switch (response.getType()) {
+                switch (response.getType()) {
                 // Response was successful and contains auth token
                 case TOKEN:
                     // Handle successful response
@@ -87,6 +95,15 @@ public class MainActivity extends AppCompatActivity implements ConnectionStateCa
     }
 
     @Override
+    public void onLoggedIn() {
+        Log.d("MainActivity", "User logged in");
+        Intent intent = new Intent(this, MyPlaylists.class);// New activity
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish(); // Call once you redirect to another activity
+    }
+    /*
+    * @Override
     public void onLoggedIn() {
         Log.d("MainActivity", "User logged in");
         // Instantiate the RequestQueue.
@@ -123,6 +140,8 @@ public class MainActivity extends AppCompatActivity implements ConnectionStateCa
 
 
     }
+    * */
+
 
     @Override
     public void onLoggedOut() {

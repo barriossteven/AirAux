@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.steven.airaux.MyPlaylists">
 
-    <Button
-        android:id="@+id/button"
+
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="msde"
-        tools:layout_editor_absoluteX="396dp"
-        tools:layout_editor_absoluteY="633dp" />
+        android:text="My playlists go here"
+        tools:layout_editor_absoluteX="69dp"
+        tools:layout_editor_absoluteY="84dp" />
 </android.support.constraint.ConstraintLayout>
