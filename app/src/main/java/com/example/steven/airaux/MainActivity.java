@@ -102,45 +102,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionStateCa
         startActivity(intent);
         finish(); // Call once you redirect to another activity
     }
-    /*
-    * @Override
-    public void onLoggedIn() {
-        Log.d("MainActivity", "User logged in");
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String yourUrl = "https://api.spotify.com/v1/me/playlists";
 
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, yourUrl, null ,new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.i("onResponse", response.toString());
-                Log.d("MainActivity", "request WORKEDDDD");
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("onErrorResponse", error.toString());
-                Log.d("MainActivity", "request didnt work");
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> headers = new HashMap<>();
-                // Basic Authentication
-                //String auth = "Basic " + Base64.encodeToString(CONSUMER_KEY_AND_SECRET.getBytes(), Base64.NO_WRAP);
-                headers.put("Accept:","application/json");
-                headers.put("Authorization", "Bearer " + "BQAbzIIYnAzDZdU8xydH0edV4X5VYQ5fhIi1gg0ywESua3aOc5BaXvaYRVaHhEx66_uDOv-o7ub94Blj-A154CWHNpBEGP8MLizD1ur20Q4RKJj0HMLwzUuf1saNdtvu2SXQnkLQPplROcX2cgJqgD6l27drL37T");
-                return headers;
-            }
-        };
-        queue.add(request);
-
-
-
-    }
-    * */
 
 
     @Override

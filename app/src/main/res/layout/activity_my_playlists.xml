@@ -8,10 +8,11 @@
 
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/result"
+        android:layout_width="228dp"
+        android:layout_height="495dp"
         android:text="My playlists go here"
-        tools:layout_editor_absoluteX="69dp"
-        tools:layout_editor_absoluteY="84dp" />
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="78dp"
+        tools:layout_editor_absoluteY="0dp" />
 </android.support.constraint.ConstraintLayout>
